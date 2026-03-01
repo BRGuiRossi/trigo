@@ -522,9 +522,9 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
           <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block">2. Sabores & Ingredientes</label>
           <div className="space-y-4">
             <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">{isHalfAndHalf ? 'Lado A' : 'Sabor Principal'}</p>
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4">
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
               {PIZZA_FLAVORS.map(f => (
-                <button key={f.id} onClick={() => { setFlavor1(f); setQuantitiesA(f.defaults.reduce((a,v) => ({ ...a, [v]: 1}), {})); }} className={`flex-shrink-0 px-5 py-3 rounded-full border text-xs font-black whitespace-nowrap transition-all active:scale-95 ${flavor1.id === f.id ? 'bg-gray-800 text-white border-gray-800 shadow-md' : 'bg-white text-gray-600 border-gray-200'}`}>{f.name}</button>
+                <button key={f.id} onClick={() => { setFlavor1(f); setQuantitiesA(f.defaults.reduce((a,v) => ({ ...a, [v]: 1}), {})); }} className={`flex-shrink-0 px-6 py-4 rounded-2xl border-2 font-black text-[12px] whitespace-nowrap transition-all active:scale-95 shadow-sm ${flavor1.id === f.id ? 'bg-red-500 text-white border-red-500 shadow-md shadow-red-200' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'}`}>{f.name}</button>
               ))}
             </div>
             <UnifiedIngredientSelector sideLabel={isHalfAndHalf ? "Lado A" : "Geral"} flavor={flavor1} ingredientQuantities={quantitiesA} onUpdateQuantity={(id, q) => updateQuantity('A', id, q)} />
@@ -532,9 +532,9 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
           {isHalfAndHalf && (
             <div className="space-y-4 animate-in fade-in slide-in-from-top-4">
                <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">Lado B</p>
-               <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4">
+               <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
                 {PIZZA_FLAVORS.map(f => (
-                  <button key={f.id} onClick={() => { setFlavor2(f); setQuantitiesB(f.defaults.reduce((a,v) => ({ ...a, [v]: 1}), {})); }} className={`flex-shrink-0 px-5 py-3 rounded-full border text-xs font-black whitespace-nowrap transition-all active:scale-95 ${flavor2.id === f.id ? 'bg-gray-800 text-white border-gray-800 shadow-md' : 'bg-white text-gray-600 border-gray-200'}`}>{f.name}</button>
+                  <button key={f.id} onClick={() => { setFlavor2(f); setQuantitiesB(f.defaults.reduce((a,v) => ({ ...a, [v]: 1}), {})); }} className={`flex-shrink-0 px-6 py-4 rounded-2xl border-2 font-black text-[12px] whitespace-nowrap transition-all active:scale-95 shadow-sm ${flavor2.id === f.id ? 'bg-red-500 text-white border-red-500 shadow-md shadow-red-200' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'}`}>{f.name}</button>
                 ))}
               </div>
               <UnifiedIngredientSelector sideLabel="Lado B" flavor={flavor2} ingredientQuantities={quantitiesB} onUpdateQuantity={(id, q) => updateQuantity('B', id, q)} />
@@ -664,7 +664,7 @@ export default function App() {
   const [activeOrder, setActiveOrder] = useState(null);
   const [initialFlavor, setInitialFlavor] = useState(null);
 
-  const addToCart = (items) => setCart(prev => [...prev, ...items]);
+  const addToCart = (items) => { setCart(prev => [...prev, ...items]); setIsCartOpen(true); };
   const removeFromCart = (id) => setCart(cart.filter(i => i.id !== id));
 
   const handleCheckout = () => {
