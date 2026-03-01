@@ -215,7 +215,7 @@ const UnifiedIngredientSelector = ({ sideLabel, flavor, ingredientQuantities, on
   return (
     <div className="space-y-4 bg-gray-50 p-4 rounded-3xl border border-gray-100">
       <div className="flex justify-between items-center px-1">
-        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{sideLabel} Customização</p>
+        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{sideLabel === "Geral" ? `Ingredientes da ${flavor.name}` : `Ingredientes do ${sideLabel}: ${flavor.name}`}</p>
         {availableSwaps > 0 && (
           <div className="flex items-center gap-1 text-[9px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-lg border border-green-100">
             <Zap size={10}/> {availableSwaps} TROCA GRÁTIS DISPONÍVEL
@@ -224,7 +224,7 @@ const UnifiedIngredientSelector = ({ sideLabel, flavor, ingredientQuantities, on
       </div>
       
       <div className="space-y-2">
-        <p className="text-[9px] font-bold text-gray-400 uppercase ml-1">Ingredientes Incluídos (Não / Normal / Extra)</p>
+        <p className="text-[9px] font-bold text-gray-400 uppercase ml-1">Toque para personalizar sua pizza</p>
         <div className="flex flex-wrap gap-2">
           {defaultIds.map(id => {
             const ing = ALL_INGREDIENTS.find(i => i.id === id);
@@ -649,6 +649,38 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
   );
 };
 
+const PizzaCard = ({ flavor, index, onSelect }) => {
+  const [imgIndex, setImgIndex] = useState(0);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      const timer = setInterval(() => setImgIndex(i => (i + 1) % flavor.images.length), 3500);
+      return () => clearInterval(timer);
+    }, index * 900);
+    return () => clearTimeout(delay);
+  }, [flavor, index]);
+  return (
+    <div className="bg-white rounded-[3rem] border border-gray-100 p-8 shadow-sm hover:shadow-2xl transition-all group flex flex-col relative overflow-hidden">
+      <div className="w-full aspect-square bg-gray-200 rounded-[2.5rem] mb-10 group-hover:scale-105 transition-all duration-700 relative overflow-hidden shadow-inner">
+        {flavor.images.map((src, i) => (
+          <img key={src} src={src}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === imgIndex ? 'opacity-100' : 'opacity-0'}`}
+            alt={flavor.name} />
+        ))}
+        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+          {flavor.images.map((_, i) => (
+            <span key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${i === imgIndex ? 'bg-white scale-125 shadow' : 'bg-white/50'}`} />
+          ))}
+        </div>
+      </div>
+      <div className="flex-1 space-y-3">
+        <h4 className="font-black text-2xl text-gray-800 tracking-tighter uppercase italic leading-none">{flavor.name}</h4>
+        <p className="text-[13px] text-gray-400 font-medium  leading-relaxed">{flavor.description}</p>
+      </div>
+      <button onClick={() => onSelect(flavor)} className="mt-10 w-full bg-gray-50 text-gray-800 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm">Manda aí!</button>
+    </div>
+  );
+};
+
 const CartModal = ({ items, onRemove, onCheckout, onClose }) => {
   const total = items.reduce((sum, item) => sum + item.price, 0);
   return (
@@ -789,17 +821,8 @@ export default function App() {
             <section className="space-y-10">
               <h3 className="text-3xl sm:text-5xl font-black text-gray-800 tracking-tighter uppercase italic px-2 leading-none">Nossas Pizzas</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {PIZZA_FLAVORS.map(flavor => (
-                  <div key={flavor.id} className="bg-white rounded-[3rem] border border-gray-100 p-8 shadow-sm hover:shadow-2xl transition-all group flex flex-col relative overflow-hidden">
-                    <div className="w-full aspect-square bg-gray-200 rounded-[2.5rem] flex items-center justify-center mb-10 group-hover:scale-105 transition-all duration-700 relative overflow-hidden shadow-inner">
-                       <img src={flavor.imageUrl} className="absolute inset-0 w-full h-full object-cover" alt={flavor.name} />
-                    </div>
-                    <div className="flex-1 space-y-3">
-                      <h4 className="font-black text-2xl text-gray-800 tracking-tighter uppercase italic leading-none">{flavor.name}</h4>
-                      <p className="text-[11px] text-gray-400 font-bold leading-relaxed">{flavor.description}</p>
-                    </div>
-                    <button onClick={() => { setInitialFlavor(flavor); setIsBuilderOpen(true); }} className="mt-10 w-full bg-gray-50 text-gray-800 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm">Manda aí!</button>
-                  </div>
+                {PIZZA_FLAVORS.map((flavor, i) => (
+                  <PizzaCard key={flavor.id} flavor={flavor} index={i} onSelect={f => { setInitialFlavor(f); setIsBuilderOpen(true); }} />
                 ))}
               </div>
             </section>
