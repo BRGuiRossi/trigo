@@ -695,9 +695,9 @@ export default function App() {
           <div className="max-w-7xl mx-auto p-4 sm:p-12 space-y-12 pb-32">
             <div className="bg-red-500 rounded-[3rem] sm:rounded-[5rem] p-8 sm:p-24 text-white flex flex-col lg:flex-row items-center justify-between overflow-hidden relative shadow-2xl shadow-red-200">
               <div className="relative z-10 space-y-8 text-center lg:text-left max-w-2xl">
-                <span className="bg-white/20 px-5 py-2 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] border border-white/20 backdrop-blur-md italic">A Melhor Pizza da Região</span>
+                <span className="bg-white/20 px-5 py-2 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] border border-white/20 backdrop-blur-md italic">A Melhor Pizza da Sua Vida</span>
                 <h2 className="text-4xl sm:text-7xl font-black leading-[1.0] tracking-tighter italic uppercase">Sabor que <br/><span className="text-yellow-300 italic">Surpreende.</span></h2>
-                <p className="text-red-50 font-medium text-base sm:text-xl leading-relaxed opacity-90 max-w-sm mx-auto lg:mx-0">Menu imersivo com fotografia real e montador inteligente.</p>
+                <p className="text-red-50 font-medium text-base sm:text-xl leading-relaxed opacity-90 max-w-sm mx-auto lg:mx-0">A pizza que chega até você rápido, quente e deliciosa!</p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
                   <button onClick={() => { setInitialFlavor(null); setIsBuilderOpen(true); }} className="bg-white text-red-600 px-12 py-5 rounded-[2.5rem] font-black text-lg hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-red-700/20">Ver Cardápio</button>
                   <div className="flex items-center gap-3 bg-black/10 px-8 py-4 rounded-[2rem] backdrop-blur-md border border-white/10"><Clock size={24} className="text-yellow-300"/><span className="font-black text-sm uppercase tracking-widest italic">35 MINS</span></div>
