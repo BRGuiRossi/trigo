@@ -183,9 +183,7 @@ const STATUS_STEPS = [
 const Header = ({ cartCount, onOpenCart, onViewKDS, activeView }) => (
   <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex justify-between items-center shadow-sm">
     <div className="flex items-center gap-2 cursor-pointer active:scale-95 transition-transform" onClick={() => window.location.reload()}>
-      <div className="bg-red-500 p-2 rounded-xl text-white shadow-lg shadow-red-200">
-        <Pizza size={20} className="sm:w-6 sm:h-6" />
-      </div>
+      <img src="/logo.png" alt="Top Pizza" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-contain" />
       <h1 className="font-bold text-lg sm:text-xl tracking-tight text-gray-800">Top<span className="text-red-500">Pizza</span></h1>
     </div>
     <div className="flex gap-2 sm:gap-3">
@@ -781,7 +779,7 @@ export default function App() {
                 <h2 className="text-4xl sm:text-7xl font-black leading-[1.0] tracking-tighter italic uppercase">Sabor que <br/><span className="text-yellow-300 italic">Surpreende.</span></h2>
                 <p className="text-red-50 font-medium text-base sm:text-xl leading-relaxed opacity-90 max-w-sm mx-auto lg:mx-0">A pizza que chega até você rápido, quente e deliciosa!</p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                  <button onClick={() => { setInitialFlavor(null); setIsBuilderOpen(true); }} className="bg-white text-red-600 px-12 py-5 rounded-[2.5rem] font-black text-lg hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-red-700/20">Ver Cardápio</button>
+                  <button onClick={() => { setInitialFlavor(null); setIsBuilderOpen(true); }} className="bg-white text-red-600 px-12 py-5 rounded-[2.5rem] font-black text-lg hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-red-700/20">Fazer Pedido</button>
                   <div className="flex items-center gap-3 bg-black/10 px-8 py-4 rounded-[2rem] backdrop-blur-md border border-white/10"><Clock size={24} className="text-yellow-300"/><span className="font-black text-sm uppercase tracking-widest italic">35 MINS</span></div>
                 </div>
               </div>
