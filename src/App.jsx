@@ -684,7 +684,7 @@ const PizzaCard = ({ flavor, index, onSelect }) => {
 const CartModal = ({ items, onRemove, onCheckout, onClose }) => {
   const total = items.reduce((sum, item) => sum + item.price, 0);
   return (
-    <div className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
+    <div className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 pb-24 sm:pb-4">
       <div className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-in slide-in-from-bottom duration-300">
         <div className="p-6 border-b flex justify-between items-center bg-gray-50/50">
           <h2 className="text-xl font-black flex items-center gap-2 tracking-tighter uppercase leading-none"><ShoppingCart size={22} className="text-red-500"/> Seu Carrinho</h2>
@@ -711,7 +711,7 @@ const CartModal = ({ items, onRemove, onCheckout, onClose }) => {
             </div>
           ))}
         </div>
-        <div className="p-8 border-t bg-white pb-safe space-y-6">
+        <div className="p-8 border-t bg-white space-y-6">
           <div className="flex justify-between items-center px-2">
             <span className="text-gray-400 font-black text-xs uppercase tracking-[0.2em]">Total a Pagar</span>
             <span className="text-3xl font-black text-gray-800 tracking-tighter leading-none">${total.toFixed(2)}</span>
