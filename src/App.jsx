@@ -59,6 +59,12 @@ const PIZZA_FLAVORS = [
     description: 'Mozzarella premium, fatias de tomate selecionadas e o aroma inconfundível do manjericão fresco.', 
     price_sm: 35, price_md: 45, price_lg: 55, 
     imageUrl: 'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1567619549107-4e0dea28a9ab?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?auto=format&fit=crop&w=1200&q=80',
+    ],
     defaults: ['i1', 'i2', 'i3']
   },
   { 
@@ -67,6 +73,12 @@ const PIZZA_FLAVORS = [
     description: 'Calabresa defumada artesanal crocante, cebola roxa em anéis e azeitonas pretas.', 
     price_sm: 38, price_md: 48, price_lg: 58, 
     imageUrl: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1555072956-7758afb20e8f?auto=format&fit=crop&w=1200&q=80',
+    ],
     defaults: ['i1', 'i2', 'i4', 'i5', 'i6']
   },
   { 
@@ -75,6 +87,12 @@ const PIZZA_FLAVORS = [
     description: 'Fiambre premium, ovos cozidos no ponto, cebola, ervilhas frescas e mozzarella.', 
     price_sm: 42, price_md: 52, price_lg: 62, 
     imageUrl: 'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?auto=format&fit=crop&w=1200&q=80',
+    ],
     defaults: ['i1', 'i2', 'i7', 'i8', 'i5', 'i9', 'i6']
   },
   { 
@@ -83,6 +101,12 @@ const PIZZA_FLAVORS = [
     description: 'O blend perfeito: Mozzarella, o picante do Gorgonzola, a textura do Parmesão e o toque do Provolone.', 
     price_sm: 45, price_md: 55, price_lg: 65, 
     imageUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1548369937-47519962c11a?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552539618-7eec9b4d1796?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600028068383-ea11a7a101f3?auto=format&fit=crop&w=1200&q=80',
+    ],
     defaults: ['i1', 'i2', 'i10', 'i11', 'i12']
   },
   { 
@@ -91,6 +115,12 @@ const PIZZA_FLAVORS = [
     description: 'Frango desfiado suculento, temperado com ervas finas e o legítimo requeijão Catupiry.', 
     price_sm: 40, price_md: 50, price_lg: 60, 
     imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1576458088443-04a19bb13da6?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?auto=format&fit=crop&w=1200&q=80',
+    ],
     defaults: ['i1', 'i2', 'i13', 'i14', 'i17']
   },
 ];
@@ -402,6 +432,26 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
   const [quantitiesB, setQuantitiesB] = useState({});
   const [step, setStep] = useState('pizza');
   const [pendingItems, setPendingItems] = useState([]);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroIndexB, setHeroIndexB] = useState(0);
+
+  useEffect(() => { setHeroIndex(0); }, [flavor1]);
+  useEffect(() => { setHeroIndexB(0); }, [flavor2]);
+
+  useEffect(() => {
+    if (isHalfAndHalf) return;
+    const timer = setInterval(() => {
+      setHeroIndex(i => (i + 1) % flavor1.images.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [flavor1, isHalfAndHalf]);
+
+  useEffect(() => {
+    if (!isHalfAndHalf) return;
+    const timerA = setInterval(() => setHeroIndex(i => (i + 1) % flavor1.images.length), 3500);
+    const timerB = setInterval(() => setHeroIndexB(i => (i + 1) % flavor2.images.length), 4200);
+    return () => { clearInterval(timerA); clearInterval(timerB); };
+  }, [flavor1, flavor2, isHalfAndHalf]);
 
   useEffect(() => {
     const initA = {};
@@ -483,21 +533,53 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
       </button>
 
       <div className="flex-1 overflow-y-auto space-y-8 pb-32 scrollbar-hide">
-        {/* Imagem Hero que agora scrolls com o conteúdo */}
+        {/* Slideshow Hero */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden bg-gray-100 shadow-lg">
           {isHalfAndHalf ? (
             <div className="flex w-full h-full">
+              {/* Lado A slideshow */}
               <div className="w-1/2 h-full relative overflow-hidden">
-                <img src={flavor1.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none" alt={flavor1.name} />
+                {flavor1.images.map((src, i) => (
+                  <img key={src} src={src}
+                    className={`absolute inset-0 w-[200%] h-full object-cover max-w-none transition-opacity duration-700 ${i === heroIndex ? 'opacity-100' : 'opacity-0'}`}
+                    alt={flavor1.name} />
+                ))}
                 <div className="absolute top-4 left-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm">Lado A</div>
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
+                  {flavor1.images.map((_, i) => (
+                    <button key={i} onClick={() => setHeroIndex(i)} className={`w-1.5 h-1.5 rounded-full transition-all ${i === heroIndex ? 'bg-white scale-125' : 'bg-white/50'}`} />
+                  ))}
+                </div>
               </div>
+              {/* Lado B slideshow */}
               <div className="w-1/2 h-full relative overflow-hidden border-l-2 border-white/50">
-                <img src={flavor2.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none -translate-x-1/2" alt={flavor2.name} />
+                {flavor2.images.map((src, i) => (
+                  <img key={src} src={src}
+                    className={`absolute inset-0 w-[200%] h-full object-cover max-w-none -translate-x-1/2 transition-opacity duration-700 ${i === heroIndexB ? 'opacity-100' : 'opacity-0'}`}
+                    alt={flavor2.name} />
+                ))}
                 <div className="absolute top-4 right-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm text-right">Lado B</div>
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
+                  {flavor2.images.map((_, i) => (
+                    <button key={i} onClick={() => setHeroIndexB(i)} className={`w-1.5 h-1.5 rounded-full transition-all ${i === heroIndexB ? 'bg-white scale-125' : 'bg-white/50'}`} />
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
-            <img src={flavor1.imageUrl} className="w-full h-full object-cover transition-all duration-700" alt={flavor1.name} />
+            <>
+              {flavor1.images.map((src, i) => (
+                <img key={src} src={src}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === heroIndex ? 'opacity-100' : 'opacity-0'}`}
+                  alt={flavor1.name} />
+              ))}
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                {flavor1.images.map((_, i) => (
+                  <button key={i} onClick={() => setHeroIndex(i)} className={`w-2 h-2 rounded-full transition-all ${i === heroIndex ? 'bg-white scale-125 shadow' : 'bg-white/50'}`} />
+                ))}
+              </div>
+            </>
           )}
         </div>
 
@@ -718,7 +800,7 @@ export default function App() {
                       <h4 className="font-black text-2xl text-gray-800 tracking-tighter uppercase italic leading-none">{flavor.name}</h4>
                       <p className="text-[11px] text-gray-400 font-bold leading-relaxed">{flavor.description}</p>
                     </div>
-                    <button onClick={() => { setInitialFlavor(flavor); setIsBuilderOpen(true); }} className="mt-10 w-full bg-gray-50 text-gray-800 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm">Customizar</button>
+                    <button onClick={() => { setInitialFlavor(flavor); setIsBuilderOpen(true); }} className="mt-10 w-full bg-gray-50 text-gray-800 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm">Manda aí!</button>
                   </div>
                 ))}
               </div>
