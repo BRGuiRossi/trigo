@@ -1,0 +1,6 @@
+kind: AppHosting
+runtime: nodejs
+runConfig:
+  baseDirectory: .
+  runCommand: npm run dev # This is typically for SSR, but App Hosting prefers an entry point if not static.
+  # For a CSR (Client-Side Rendering) app, App Hosting will look for the 'dist' output.
