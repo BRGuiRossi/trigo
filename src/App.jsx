@@ -258,13 +258,13 @@ const UnifiedIngredientSelector = ({ sideLabel, flavor, ingredientQuantities, on
                 key={ing.id}
                 onClick={() => onUpdateQuantity(ing.id, (qty + 1) % 3)}
                 className={`flex items-center justify-between p-3 rounded-xl border transition-all active:scale-95 ${
-                  qty > 0 ? 'bg-gray-800 border-gray-800 text-white shadow-lg' : 
+                  qty > 0 ? 'bg-red-500 border-red-500 text-white shadow-md shadow-red-200' : 
                   isEligibleForSwap ? 'blink-green-suggested' : 'bg-white border-gray-100 text-gray-600'
                 }`}
               >
                 <div className="flex flex-col text-left">
-                  <span className="text-[10px] font-bold truncate">{ing.name}</span>
-                  {qty > 0 && <span className="text-[9px] opacity-70 italic">{qty}x Porção</span>}
+                  <span className="text-[12px] font-bold truncate">{ing.name}</span>
+                  {qty > 0 && <span className="text-[12px] opacity-70 italic">{qty}x Porção</span>}
                 </div>
                 <div className="flex flex-col items-end">
                    <span className={`text-[9px] font-black ${qty > 0 ? 'text-white' : isEligibleForSwap ? 'text-green-600' : 'text-red-500'}`}>
@@ -601,7 +601,7 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
         <section className="space-y-8">
           <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block">2. Sabores & Ingredientes</label>
           <div className="space-y-4">
-            <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">{isHalfAndHalf ? 'Lado A' : 'Sabor Principal'}</p>
+            <p className="text-[10px] font-black text-red-500 uppercase tracking-widest">{isHalfAndHalf ? 'Lado A' : 'Escolha sua pizza'}</p>
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
               {PIZZA_FLAVORS.map(f => (
                 <button key={f.id} onClick={() => { setFlavor1(f); setQuantitiesA(f.defaults.reduce((a,v) => ({ ...a, [v]: 1}), {})); }} className={`flex-shrink-0 px-6 py-4 rounded-2xl border-2 font-black text-[12px] whitespace-nowrap transition-all active:scale-95 shadow-sm ${flavor1.id === f.id ? 'bg-red-500 text-white border-red-500 shadow-md shadow-red-200' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'}`}>{f.name}</button>
@@ -623,7 +623,7 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
         </section>
 
         <section>
-          <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-3">3. Borda & Massa</label>
+          <label className="text-[12px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-3">3. Borda & Massa</label>
           <div className="grid grid-cols-1 gap-2">
             {CRUSTS.map(c => (
               <button key={c.id} onClick={() => setCrust(c)} className={`p-4 rounded-3xl border flex justify-between items-center transition-all active:scale-[0.98] ${crust.id === c.id ? 'border-red-500 bg-red-50' : 'bg-white border-gray-100'}`}>
@@ -639,8 +639,8 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
       <div className="p-4 border-t bg-white flex flex-col gap-4 pb-safe shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
         <div className="flex justify-between items-end px-2">
           <div>
-            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Total da Pizza</p>
-            <p className="text-3xl font-black text-gray-800 tracking-tighter">${totalPrice.toFixed(2)}</p>
+            <p className="text-[12px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Total da Pizza</p>
+            <p className="text-2xl font-black text-gray-800 tracking-tighter">${totalPrice.toFixed(2)}</p>
           </div>
         </div>
         <button onClick={handlePizzaFinish} className="w-full bg-red-500 text-white py-5 rounded-[2rem] font-black text-lg shadow-xl shadow-red-200 active:scale-95 transition-all flex items-center justify-center gap-2">Escolher Bebidas e Doces <ChevronRight size={20}/></button>
@@ -674,7 +674,7 @@ const PizzaCard = ({ flavor, index, onSelect }) => {
       </div>
       <div className="flex-1 space-y-3">
         <h4 className="font-black text-2xl text-gray-800 tracking-tighter uppercase italic leading-none">{flavor.name}</h4>
-        <p className="text-[13px] text-gray-400 font-medium  leading-relaxed">{flavor.description}</p>
+        <p className="text-[12px] text-gray-400 font-medium  leading-relaxed">{flavor.description}</p>
       </div>
       <button onClick={() => onSelect(flavor)} className="mt-10 w-full bg-gray-50 text-gray-800 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm">Manda aí!</button>
     </div>
@@ -685,7 +685,7 @@ const CartModal = ({ items, onRemove, onCheckout, onClose }) => {
   const total = items.reduce((sum, item) => sum + item.price, 0);
   return (
     <div className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 pb-24 sm:pb-4">
-      <div className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-in slide-in-from-bottom duration-300">
+      <div className="bg-white w-full max-w-md rounded-[3rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] animate-in slide-in-from-bottom duration-300">
         <div className="p-6 border-b flex justify-between items-center bg-gray-50/50">
           <h2 className="text-xl font-black flex items-center gap-2 tracking-tighter uppercase leading-none"><ShoppingCart size={22} className="text-red-500"/> Seu Carrinho</h2>
           <button onClick={onClose} className="p-2 bg-gray-100 rounded-full active:scale-90 transition-all"><X size={20}/></button>
@@ -704,7 +704,7 @@ const CartModal = ({ items, onRemove, onCheckout, onClose }) => {
               </div>
               <div className="flex-1 min-w-0 pr-6">
                 <h4 className="font-black text-gray-800 text-sm truncate uppercase tracking-tighter leading-none mb-1">{item.quantity > 1 ? `${item.quantity}x ` : ''}{item.name}</h4>
-                <p className="text-[9px] text-gray-500 font-bold italic leading-tight line-clamp-2">{item.details}</p>
+                <p className="text-[12px] text-gray-500 font-bold italic leading-tight line-clamp-2">{item.details}</p>
                 <p className="text-sm font-black text-red-600 mt-2">${item.price.toFixed(2)}</p>
               </div>
               <button onClick={() => onRemove(item.id)} className="absolute top-4 right-4 p-2 text-gray-300 hover:text-red-500 active:scale-90 transition-all"><Trash2 size={16} /></button>
@@ -731,7 +731,7 @@ const KDSView = ({ orders, onUpdateStatus, onSyncIFood }) => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-white p-8 rounded-[3rem] border border-gray-100 shadow-sm">
         <div className="space-y-1">
           <h2 className="text-3xl font-black text-gray-800 tracking-tighter flex items-center gap-3 italic uppercase"><div className="bg-red-500 text-white p-2 rounded-2xl"><ChefHat size={24}/></div> Cozinha Central</h2>
-          <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Pipeline de Pedidos Ativos</p>
+          <p className="text-gray-400 text-[14px] font-black uppercase tracking-widest">Pipeline de Pedidos Ativos</p>
         </div>
         <button onClick={handleSync} disabled={isSyncing} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#ea1d2c] text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-red-100"><RefreshCw size={16} className={isSyncing ? 'animate-spin' : ''}/> Sync iFood</button>
       </div>
