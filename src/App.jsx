@@ -477,30 +477,31 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[100] bg-white flex flex-col md:max-w-xl md:mx-auto md:shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
-      {/* Imagem Hero que ocupa todo o topo do diálogo */}
-      <div className="relative w-full h-64 sm:h-80 overflow-hidden bg-gray-100 flex-shrink-0 shadow-lg">
-        {isHalfAndHalf ? (
-          <div className="flex w-full h-full">
-            <div className="w-1/2 h-full relative overflow-hidden">
-              <img src={flavor1.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none" alt={flavor1.name} />
-              <div className="absolute top-4 left-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm">Lado A</div>
-            </div>
-            <div className="w-1/2 h-full relative overflow-hidden border-l-2 border-white/50">
-              <img src={flavor2.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none -translate-x-1/2" alt={flavor2.name} />
-              <div className="absolute top-4 right-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm text-right">Lado B</div>
-            </div>
-          </div>
-        ) : (
-          <img src={flavor1.imageUrl} className="w-full h-full object-cover transition-all duration-700" alt={flavor1.name} />
-        )}
-        
-        {/* Botão Fechar flutuante sobre a imagem */}
-        <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-md z-20">
-          <X size={24}/>
-        </button>
-      </div>
+      {/* Botão Fechar flutuante */}
+      <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-full transition-colors backdrop-blur-md z-20">
+        <X size={24}/>
+      </button>
 
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-8 pb-32 scrollbar-hide">
+      <div className="flex-1 overflow-y-auto space-y-8 pb-32 scrollbar-hide">
+        {/* Imagem Hero que agora scrolls com o conteúdo */}
+        <div className="relative w-full h-64 sm:h-80 overflow-hidden bg-gray-100 shadow-lg">
+          {isHalfAndHalf ? (
+            <div className="flex w-full h-full">
+              <div className="w-1/2 h-full relative overflow-hidden">
+                <img src={flavor1.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none" alt={flavor1.name} />
+                <div className="absolute top-4 left-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm">Lado A</div>
+              </div>
+              <div className="w-1/2 h-full relative overflow-hidden border-l-2 border-white/50">
+                <img src={flavor2.imageUrl} className="absolute inset-0 w-[200%] h-full object-cover max-w-none -translate-x-1/2" alt={flavor2.name} />
+                <div className="absolute top-4 right-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-sm text-right">Lado B</div>
+              </div>
+            </div>
+          ) : (
+            <img src={flavor1.imageUrl} className="w-full h-full object-cover transition-all duration-700" alt={flavor1.name} />
+          )}
+        </div>
+
+        <div className="px-4 py-6 space-y-8">
         <section>
           <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-4">1. Tamanho e Fatias</label>
           <div className="grid grid-cols-3 gap-3">
@@ -552,6 +553,7 @@ const PizzaBuilder = ({ initialFlavor, onAddToCart, onClose }) => {
             ))}
           </div>
         </section>
+        </div>
       </div>
 
       <div className="p-4 border-t bg-white flex flex-col gap-4 pb-safe shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
